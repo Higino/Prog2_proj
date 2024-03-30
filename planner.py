@@ -35,19 +35,19 @@ class schedulePlanner:
 
 
         # 1. Sort request by priority and doctors by skill
-        newSchedule = self.createNewScheduleBasedOnPrevious(previousSched, scheduleTime, scheduleDay)
-        (newScheduleTime, newScheduleDay) = fM.computeNewTimes(scheduleTime, scheduleDay)
+        newSchedule = self.createNewScheduleBasedOnPrevious(self.schedule, self.scheduleTime, self.scheduleDay)
+        (newScheduleTime, newScheduleDay) = fM.computeNewTimes(self.scheduleTime, self.scheduleDay)
 
     
 
-        for mae in maes:
-            doctor  = self.getMatchingDoctor(mae, doctors) # get the doctor that is the best to do the request
+        for mae in self.maes:
+            doctor  = self.getMatchingDoctor(mae, self.doctors) # get the doctor that is the best to do the request
             
             if( doctor != None):
                 self.addDoctorToNewSchedule(doctor, mae, newSchedule, newScheduleTime, newScheduleDay) # Updates doctor and the new schedule 
             else:
                 # If a suitable doctor is not found, send request to another hospital
-                self.sendRequestToOtherHospital(mae, newSchedule, scheduleTime)
+                self.sendRequestToOtherHospital(mae, newSchedule, self.scheduleTime)
 
         return newSchedule
     
@@ -191,4 +191,4 @@ class schedulePlanner:
         return self.doctors
     
     def getSchedule(self):
-        return self.
+        return self.schedule
